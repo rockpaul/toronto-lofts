@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toronto's Finest Lofts — Riley Boyko</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #D4BA8A;
+    --gold-dark: #A8864A;
+    --charcoal: #1A1A1A;
+    --deep: #0D0D0D;
+    --warm-gray: #2A2A2A;
+    --text: #E8E0D4;
+    --text-muted: #9A9088;
+    --cream: #F5EDE0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--deep);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, var(--deep) 0%, #111 50%, var(--deep) 100%);
+    padding: 60px 24px 80px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,169,110,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(201,169,110,0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+
+  .hero-badge span {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  /* ─── VIDEO ─── */
+  .video-wrapper {
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,169,110,0.1);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .scroll-cue span {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ─── INTRO SECTION ─── */
+  .intro-section {
+    padding: 120px 24px;
+    text-align: center;
+    position: relative;
+    background: var(--deep);
+  }
+
+  .intro-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  }
+
+  .intro-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .intro-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.25;
+    max-width: 700px;
+    margin: 0 auto 24px;
+  }
+
+  .intro-section p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ─── LOFT GRID ─── */
+  .lofts-section {
+    padding: 40px 24px 120px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .loft-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .loft-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--warm-gray);
+    border: 1px solid rgba(201,169,110,0.08);
+    transition: border-color 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .loft-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease, transform 0.8s ease, border-color 0.5s ease;
+  }
+
+  .loft-card:hover {
+    border-color: rgba(201,169,110,0.25);
+    transform: translateY(-4px);
+  }
+
+  .loft-card-img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.92);
+    transition: filter 0.5s ease, transform 0.6s ease;
+  }
+
+  .loft-card:hover .loft-card-img {
+    filter: brightness(1);
+    transform: scale(1.03);
+  }
+
+  .loft-img-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .loft-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(42,42,42,0.9), transparent);
+    pointer-events: none;
+  }
+
+  .loft-card-body {
+    padding: 28px 28px 32px;
+  }
+
+  .loft-card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+
+  .loft-address {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .loft-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ─── CTA BAND ─── */
+  .cta-band {
+    padding: 100px 24px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--deep), #0f0e0c, var(--deep));
+    position: relative;
+  }
+
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201,169,110,0.04), transparent);
+    pointer-events: none;
+  }
+
+  .cta-band h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .cta-band p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .btn-gold {
+    display: inline-block;
+    padding: 16px 48px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--charcoal);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-gold:hover {
+    box-shadow: 0 8px 32px rgba(201,169,110,0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .btn-gold:hover::after {
+    transform: translateX(100%);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 48px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(201,169,110,0.08);
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal {
+    background: var(--warm-gray);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 6px;
+    padding: 48px 40px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .modal-overlay.active .modal {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .modal .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .modal-phone {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(201,169,110,0.15);
+    border-bottom: 1px solid rgba(201,169,110,0.15);
+    width: 100%;
+    transition: color 0.3s;
+  }
+
+  .modal-phone:hover { color: var(--gold-light); }
+
+  /* ─── NAV ─── */
+  .topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: transparent;
+    transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .topnav.scrolled {
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    padding: 14px 40px;
+    box-shadow: 0 1px 0 rgba(201,169,110,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-logo em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .nav-contact {
+    padding: 10px 28px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid rgba(201,169,110,0.35);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .nav-contact:hover {
+    background: rgba(201,169,110,0.1);
+    border-color: var(--gold);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .loft-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .loft-card-body { padding: 20px 20px 24px; }
+    .topnav { padding: 16px 20px; }
+    .topnav.scrolled { padding: 12px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .intro-section { padding: 80px 20px; }
+    .lofts-section { padding: 20px 16px 80px; }
+    .cta-band { padding: 80px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav" id="topnav">
+  <div class="nav-logo">Riley Boyko <em>Lofts</em></div>
+  <button class="nav-contact" onclick="openModal()">Contact</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span></span> Toronto's Loft Authority <span></span>
+  </div>
+  <h1>True Conversion<br><em>Loft Living</em></h1>
+  <p class="hero-sub">
+    Brick and beam. Douglas fir ceilings. Cast iron posts. These aren't loft-inspired condos — they're the real deal. Authentic warehouse conversions from Toronto's industrial golden age, now among the city's most coveted addresses.
+  </p>
+  <div class="video-wrapper">
+    <iframe src="https://fast.wistia.net/embed/iframe/fr7qfck7l6?seo=true&videoFoam=false" title="Toronto Lofts — Riley Boyko" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+  <div class="scroll-cue">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="intro-label">The Collection</div>
+  <h2>Toronto's Top Lofts</h2>
+  <p>
+    The term "loft" is subjective in Toronto. There's loft-inspired, and then there's true conversion — brick and beam, mostly early 1900s warehouses repurposed into one-of-a-kind residences. With virtually no new supply, these buildings represent an irreplaceable piece of the city's architectural heritage.
+  </p>
+</section>
+
+<!-- LOFT GRID -->
+<section class="lofts-section">
+  <div class="loft-grid">
+
+    <!-- 1 · Toy Factory -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Toy_Factory.jpg" alt="Toy Factory Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Toy Factory Lofts</h3>
+        <div class="loft-address">43 Hanna Ave · Liberty Village</div>
+        <p class="loft-desc">
+          Arguably the number one address in Liberty Village. The former Irwin Toy factory, built in the early 1900s, was converted by Lanterra in 2008. The original floors feature exposed red brick, Douglas fir ceilings, and cast iron beams, while the extension offers 12.5-foot concrete ceilings with balconies. Renowned for its superior management and uniquely convenient same-floor parking.
+        </p>
+      </div>
+    </div>
+
+    <!-- 2 · Candy Factory -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Candy_Factory.webp" alt="Candy Factory Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Candy Factory Lofts</h3>
+        <div class="loft-address">993 Queen St W · Queen West</div>
+        <p class="loft-desc">
+          Built in the 1930s as the DC Candy plant, converted in 1999 by Harry Stinson — the pioneer of Toronto's warehouse-to-condo movement. This was the very first building to start the loft conversion trend in the city. The smallest unit starts at 980 sq ft, with layouts reaching up to 4,500 sq ft. Pure hard loft from ground to roof, with top-floor units offering rooftop terrace access via spiral staircase.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 · Broadview Lofts -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Broadview_Lofts.webp" alt="Broadview Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Broadview Lofts</h3>
+        <div class="loft-address">68 Broadview Ave · Riverdale</div>
+        <p class="loft-desc">
+          A former Rexall pharmacy warehouse from the early 1900s, converted in 2006. Widely regarded as one of the most beautiful loft buildings in the city, featuring beige concrete brick, wood ceilings, and polished concrete floors. The penthouse extensions boast 20-foot ceilings and glass box windows — each one truly unique. Some units include separately deeded private outdoor terraces.
+        </p>
+      </div>
+    </div>
+
+    <!-- 4 · Robert Watson Lofts -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Robert_Watson_Lofts.jpg" alt="Robert Watson Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Robert Watson Lofts</h3>
+        <div class="loft-address">363–369 Sorauren Ave · Roncesvalles</div>
+        <p class="loft-desc">
+          Another early 1900s warehouse — this one formerly produced renowned mints. Located in the heart of Roncesvalles, one of Toronto's most desirable and condo-scarce neighbourhoods. The extension units stand out with almost entirely bi-level and multi-level layouts, a rarity in the condo market. Units top out around 1,500 sq ft with ground-level walkout options available.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5 · Chocolate Company -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/chocolate-co-lofts-original-3.jpg" alt="Chocolate Company Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Chocolate Company Lofts</h3>
+        <div class="loft-address">955 Queen St W · Queen West</div>
+        <p class="loft-desc">
+          Originally the Patterson Candy Co. factory built in 1912, converted by Plazacorp in 2005. Two heritage buildings linked by a modern six-storey addition house 144 lofts blending hard and soft styles. Hard loft units feature 12-foot wood or corrugated metal ceilings with exposed brick, while soft lofts offer 10.5-foot ceilings and floor-to-ceiling glass. Directly across from Trinity Bellwoods Park.
+        </p>
+      </div>
+    </div>
+
+    <!-- 6 · Massey Harris Lofts -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Massey_Harris_Lofts.jpg" alt="Massey Harris Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Massey Harris Lofts</h3>
+        <div class="loft-address">915 King St W · King West</div>
+        <p class="loft-desc">
+          Once home to the legendary Massey-Harris agricultural equipment company, this striking red brick heritage building on King West has been transformed into one of the neighbourhood's most distinctive loft residences. The beautifully preserved Victorian-era industrial façade features arched windows and ornamental brickwork, with a modern rooftop addition above. A rare piece of Canadian industrial history reimagined for contemporary living.
+        </p>
+      </div>
+    </div>
+
+    <!-- 7 · Kings Lofts -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Kings_Lofts.jpg" alt="The Kings Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>The Kings Lofts</h3>
+        <div class="loft-address">800 King St W · King West</div>
+        <p class="loft-desc">
+          Built in 2000 by Triloft Developments, this boutique five-storey building houses 76 refreshingly spacious soft lofts ranging from 700 to 1,100 sq ft. Many units feature true two-storey configurations with 18-foot ceilings, double-height windows, and open mezzanine bedrooms. Exposed concrete, hardwood floors, BBQ-friendly balconies, and a prime King West location right at Niagara Street.
+        </p>
+      </div>
+    </div>
+
+    <!-- 8 · Abbey Lane Lofts -->
+    <div class="loft-card">
+      <div class="loft-img-wrap">
+        <img class="loft-card-img" src="images/Abbey_Lane_Lofts.jpg" alt="Abbey Lane Lofts">
+      </div>
+      <div class="loft-card-body">
+        <h3>Abbey Lane Lofts</h3>
+        <div class="loft-address">261 King St E · St. Lawrence</div>
+        <p class="loft-desc">
+          An intimate 29-unit boutique building constructed in 2003 by Harhay in the St. Lawrence neighbourhood. This purpose-built soft loft features heritage-style red brick architecture with exposed concrete, industrial ductwork, and warehouse windows. Ceilings soar from 11 to a staggering 20 feet in the split-level penthouse suites. Steps from St. Lawrence Market and the Distillery District.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>Find Your Loft</h2>
+  <p>Whether you're buying, selling, or simply curious about Toronto's authentic loft market — let's talk.</p>
+  <button class="btn-gold" onclick="openModal()">Get In Touch</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Riley Boyko — Toronto's Loft Expert</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-label">Get in touch</div>
+    <h3>Riley Boyko</h3>
+    <p class="subtitle">The Toronto Loft Expert</p>
+    <a href="tel:6473004113" class="modal-phone">647-300-4113</a>
+  </div>
+</div>
+
+<script>
+  // Navbar scroll
+  const nav = document.getElementById('topnav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Modal
+  function openModal() {
+    document.getElementById('modal').classList.add('active');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Scroll reveal for loft cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.loft-card').forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>
