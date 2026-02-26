@@ -39,7 +39,8 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(180deg, var(--deep) 0%, #111 50%, var(--deep) 100%);
-    padding: 60px 24px 80px;
+    margin-top: -80px;
+    padding: 0 24px 0;
   }
 
   .hero::before {
@@ -120,50 +121,13 @@
     border: none;
   }
 
-  .scroll-cue {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.2s forwards;
-  }
-
-  .scroll-cue span {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--text-muted);
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(180deg, var(--gold), transparent);
-    animation: scrollPulse 2s ease infinite;
-  }
-
   /* ─── INTRO SECTION ─── */
   .intro-section {
-    padding: 120px 24px;
+    margin-top: -80px;
+    padding: 0 24px;
     text-align: center;
     position: relative;
     background: var(--deep);
-  }
-
-  .intro-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1px;
-    height: 80px;
-    background: linear-gradient(180deg, transparent, var(--gold), transparent);
   }
 
   .intro-label {
@@ -193,7 +157,7 @@
 
   /* ─── LOFT GRID ─── */
   .lofts-section {
-    padding: 40px 24px 120px;
+    padding: 20px 24px 120px;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -286,7 +250,7 @@
 
   /* ─── CTA BAND ─── */
   .cta-band {
-    padding: 100px 24px;
+    padding: 60px 24px 100px;
     text-align: center;
     background: linear-gradient(180deg, var(--deep), #0f0e0c, var(--deep));
     position: relative;
@@ -524,11 +488,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
     .loft-grid {
@@ -538,10 +497,10 @@
     .loft-card-body { padding: 20px 20px 24px; }
     .topnav { padding: 16px 20px; }
     .topnav.scrolled { padding: 12px 20px; }
-    .hero { padding: 100px 20px 60px; }
-    .intro-section { padding: 80px 20px; }
-    .lofts-section { padding: 20px 16px 80px; }
-    .cta-band { padding: 80px 20px; }
+    .hero { margin-top: -80px; padding: 0 20px 0; }
+    .intro-section { margin-top: -80px; padding: 0 20px; }
+    .lofts-section { padding: 12px 16px 80px; }
+    .cta-band { padding: 50px 20px 80px; }
   }
 </style>
 </head>
@@ -549,7 +508,7 @@
 
 <!-- NAV -->
 <nav class="topnav" id="topnav">
-  <div class="nav-logo">Riley Boyko <em>Lofts</em></div>
+  <div class="nav-logo">Top Toronto <em>Lofts</em></div>
   <button class="nav-contact" onclick="openModal()">Contact</button>
 </nav>
 
@@ -564,10 +523,6 @@
   </p>
   <div class="video-wrapper">
     <iframe src="https://fast.wistia.net/embed/iframe/fr7qfck7l6?seo=true&videoFoam=false" title="Toronto Lofts — Riley Boyko" allow="autoplay; fullscreen" allowfullscreen></iframe>
-  </div>
-  <div class="scroll-cue">
-    <span>Explore</span>
-    <div class="scroll-line"></div>
   </div>
 </section>
 
@@ -708,7 +663,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 Riley Boyko — Toronto's Loft Expert</p>
+  <p>Rare Real Estate</p>
 </footer>
 
 <!-- MODAL -->
